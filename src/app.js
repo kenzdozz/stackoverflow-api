@@ -25,8 +25,10 @@ class App {
     this.app.listen(this.PORT, () => {
       Logger.log(`app running on http://localhost:${this.PORT}`);
     });
+    return this.app;
   }
 }
 
-const app = new App();
-app.boot();
+const app = new App().boot();
+
+export default app;

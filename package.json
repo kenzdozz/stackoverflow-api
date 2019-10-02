@@ -5,7 +5,7 @@
   "author": "Kenneth Onah",
   "license": "MIT",
   "scripts": {
-    "test": "ENV_TEST=true nyc mocha --require babel-register --exit",
+    "test": "ENV_TEST=true mocha --require babel-register --exit",
     "build": "babel ./ -d build --copy-files --ignore 'node_modules' ",
     "start": "yarn build && node build/app",
     "start:dev": "./node_modules/.bin/babel-watch src/app.js"

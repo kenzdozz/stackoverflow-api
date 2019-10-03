@@ -54,12 +54,12 @@ describe('User asks a question: POST /questions', () => {
     const response = await chai.request(app)
       .post('/api/v1/questions').send({
         title: 'Hello',
-      });
+      }).set('Authorization', token);
 
-    expect(response.status).to.eqls(codes.unAuthorized);
-    expect(response.body.status).to.eqls(codes.unAuthorized);
+    expect(response.status).to.eqls(codes.badRequest);
+    expect(response.body.status).to.eqls(codes.badRequest);
     expect(response.body.error).eqls('Validation errors.');
-    expect(response.body.fields.body).eqls('Question body is required.');
+    expect(response.body.fields.body).eqls('Body is required.');
   });
 
   it('should view questions', async () => {
@@ -76,11 +76,17 @@ describe('User asks a question: POST /questions', () => {
   it('should view a question', async () => {
     const response = await chai.request(app).get(`/api/v1/questions/${questionId}`);
 
-    questionId = (response.body.data || {})._id;
-
     expect(response.status).to.eqls(codes.success);
     expect(response.body.status).to.eqls(codes.success);
     expect(response.body.data).to.be.an('object');
     expect(response.body.data.title).eqls(aQuestion.title);
+  });
+
+  it('should fail to view a question that does not exist', async () => {
+    const response = await chai.request(app).get('/api/v1/questions/455');
+
+    expect(response.status).to.eqls(codes.notFound);
+    expect(response.body.status).to.eqls(codes.notFound);
+    expect(response.body.error).eqls('Question not found.');
   });
 });

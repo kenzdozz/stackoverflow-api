@@ -12,7 +12,12 @@ const loginRules = {
   password: 'required',
 };
 
+const quesRules = {
+  title: 'required',
+  body: 'required',
+  notify: 'boolean',
+};
 
 export {
-  registerRules, loginRules,
+  registerRules, loginRules, quesRules,
 };

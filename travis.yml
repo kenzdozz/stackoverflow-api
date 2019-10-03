@@ -1,0 +1,14 @@
+language: node_js
+
+node_js:
+  - "node"
+
+env:
+  - ENV=travis
+
+services:
+  - mongodb
+
+cache:
+  directories:
+    - node_modules

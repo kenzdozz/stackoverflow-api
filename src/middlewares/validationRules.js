@@ -18,6 +18,10 @@ const quesRules = {
   notify: 'boolean',
 };
 
+const ansRules = {
+  body: 'required',
+};
+
 export {
-  registerRules, loginRules, quesRules,
+  registerRules, loginRules, quesRules, ansRules,
 };

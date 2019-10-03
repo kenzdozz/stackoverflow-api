@@ -10,8 +10,8 @@ class TokenUtil {
    * @param {Object} payload
    * @param {String} time - Expiry time
    */
-  static sign(payload, time = '10d') {
-    return jsonwebtoken.sign(payload, process.env.JWT_SECRET, { expiresIn: time });
+  static sign(payload) {
+    return jsonwebtoken.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });
   }
 
   /**

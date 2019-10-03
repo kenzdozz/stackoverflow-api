@@ -38,7 +38,7 @@ describe('User asks a question: POST /questions', () => {
     token = (res1.body.data || {}).token || '';
 
     const res2 = await chai.request(app).post('/api/v1/questions').send(aQuestion).set('Authorization', token);
-    questionId = ((res2.body.data || [])[0] || {})._id;
+    questionId = ((res2.body.data || {}))._id;
   });
 
   after(async () => {
@@ -50,18 +50,27 @@ describe('User asks a question: POST /questions', () => {
     const response = await chai.request(app)
       .post(`/api/v1/questions/${questionId}`).send(anAswer).set('Authorization', token);
 
-    expect(response.status).to.eqls(codes.created);
+    expect(response.status).to.eqls(codes.success);
     expect(response.body).to.be.an('object');
-    expect(response.body.status).to.eqls(codes.created);
+    expect(response.body.status).to.eqls(codes.success);
     expect(response.body.data.body).to.eqls(anAswer.body);
   });
 
-  it('should fail to answer a question without authentication', async () => {
+  it('should fail to answer a question without Authorization', async () => {
     const response = await chai.request(app)
       .post(`/api/v1/questions/${questionId}`).send({ body: 'Hello' });
 
     expect(response.status).to.eqls(codes.unAuthorized);
     expect(response.body.status).to.eqls(codes.unAuthorized);
-    expect(response.body.error).eqls('Authentication is required.');
+    expect(response.body.error).eqls('Authorization is required.');
+  });
+
+  it('should fail to answer a question that does not exist', async () => {
+    const response = await chai.request(app)
+      .post('/api/v1/questions/897').send({ body: 'Hello' }).set('Authorization', token);
+
+    expect(response.status).to.eqls(codes.notFound);
+    expect(response.body.status).to.eqls(codes.notFound);
+    expect(response.body.error).eqls('Question not found.');
   });
 });

@@ -8,8 +8,7 @@ const trimInputs = (req, res, next) => {
   const keys = Object.keys(req.body);
   // eslint-disable-next-line no-restricted-syntax
   for (const index of keys) {
-    req.body[index] = typeof req.body[index] === 'string'
-      ? req.body[index].trim() : req.body[index];
+    if (typeof req.body[index] === 'string') req.body[index] = req.body[index].trim();
   }
   next();
 };

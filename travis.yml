@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "node"
+  - 10.15.3
 
 env:
   - ENV=travis
@@ -12,3 +12,6 @@ services:
 cache:
   directories:
     - node_modules
+
+script:
+  - "yarn test"

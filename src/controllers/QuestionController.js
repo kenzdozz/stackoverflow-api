@@ -27,7 +27,7 @@ class QuestionController {
 
   static async viewAll(req, res) {
     try {
-      const questions = await Question.find({}).populate('author', 'displayName email');
+      const questions = await Question.find({}).populate('author', 'displayName email').populate('answers', 'body votes accepted');
 
       return Response.send(res, codes.success, {
         data: questions,

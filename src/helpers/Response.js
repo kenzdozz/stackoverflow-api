@@ -3,7 +3,7 @@ import Logger from './Logger';
 
 class Response {
   static send(res, status, data) {
-    res.status(status).send({
+    return res.status(status).send({
       status,
       ...data,
     });

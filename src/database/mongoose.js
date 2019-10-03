@@ -15,6 +15,7 @@ mongoose.connect(mongoConnectionUrl, {
   useNewUrlParser: true,
   reconnectTries: Number.MAX_VALUE,
   reconnectInterval: 1000,
+  useUnifiedTopology: true,
 });
 
 const db = mongoose.connection;

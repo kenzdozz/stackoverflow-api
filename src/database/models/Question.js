@@ -14,6 +14,7 @@ const queSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }],
   votes: [{ type: Schema.Types.ObjectId, ref: 'Vote' }],
+  voteCount: { type: Number, default: 0 },
 }, {
   timestamps: true,
 });

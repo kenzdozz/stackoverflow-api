@@ -11,7 +11,8 @@ const userSchema = new Schema({
   password: String,
   questions: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
   answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }],
-  votes: [{ type: Schema.Types.ObjectId, ref: 'Vote' }],
+  ansVotes: [{ type: Schema.Types.ObjectId, ref: 'Vote' }],
+  quesVotes: [{ type: Schema.Types.ObjectId, ref: 'Vote' }],
 }, {
   timestamps: true,
 });

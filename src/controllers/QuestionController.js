@@ -27,7 +27,7 @@ class QuestionController {
 
   static async viewAll(req, res) {
     try {
-      const questions = await Question.find({}).populate('author', 'displayName email').populate('answers', 'body votes accepted');
+      const questions = await Question.find({}).populate('author', 'displayName email');
 
       return Response.send(res, codes.success, {
         data: questions,
@@ -45,7 +45,7 @@ class QuestionController {
     }
 
     try {
-      const question = await Question.findById(id).populate('author', 'displayName email');
+      const question = await Question.findById(id).populate('author', 'displayName email').populate('answers', 'body voteCount accepted ');
       if (!question) {
         return Response.send(res, codes.notFound, {
           error: 'Question not found.',

@@ -8,23 +8,9 @@ import app from '../src/app';
 import User from '../src/database/models/User';
 import codes from '../src/helpers/statusCodes';
 import Question from '../src/database/models/Question';
+import { aUser, aQuestion, anAswer } from './testData';
 
 chai.use(chaiHttp);
-
-const aUser = {
-  displayName: 'Kenz',
-  email: 'kennet.onah@gmail.com',
-  password: 'secret123',
-};
-
-const aQuestion = {
-  title: 'Http request in Go',
-  body: 'How can I make a http request in Go?',
-};
-
-const anAswer = {
-  body: 'Its so easy',
-};
 
 let token;
 let questionId;

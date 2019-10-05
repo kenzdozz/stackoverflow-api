@@ -7,16 +7,8 @@ const { Schema } = mongoose;
 
 const voteSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User' },
-  on: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    refPath: 'onModel',
-  },
-  onModel: {
-    type: String,
-    required: true,
-    enum: ['Question', 'Answer'],
-  },
+  answer: { type: Schema.Types.ObjectId, ref: 'Answer' },
+  question: { type: Schema.Types.ObjectId, ref: 'Question' },
 }, {
   timestamps: true,
 });

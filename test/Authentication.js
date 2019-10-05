@@ -6,14 +6,9 @@ import bcrypt from 'bcrypt';
 import app from '../src/app';
 import User from '../src/database/models/User';
 import codes from '../src/helpers/statusCodes';
+import { aUser } from './testData';
 
 chai.use(chaiHttp);
-
-const aUser = {
-  displayName: 'Kenz',
-  email: 'kennet.onah@gmail.com',
-  password: 'secret123',
-};
 
 describe('Login a user: POST /auth/login', () => {
   before(async () => {

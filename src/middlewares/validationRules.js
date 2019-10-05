@@ -22,6 +22,14 @@ const ansRules = {
   body: 'required',
 };
 
+const voteRules = {
+  id: 'required',
+  vote: {
+    rules: 'required|belongsto',
+    belongsto: [-1, 0, 1],
+  },
+};
+
 export {
-  registerRules, loginRules, quesRules, ansRules,
+  registerRules, loginRules, quesRules, ansRules, voteRules,
 };

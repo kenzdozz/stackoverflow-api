@@ -7,7 +7,7 @@ import authenticated from '../middlewares/authentication';
 import AnswerController from '../controllers/AnswerController';
 
 /**
- * Routes of '/auth'
+ * Routes of '/questions'
  */
 const quesRouter = express.Router();
 

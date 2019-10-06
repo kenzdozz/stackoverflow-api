@@ -1,6 +1,17 @@
+import User from '../database/models/User';
+
+
 const registerRules = {
   displayName: 'required',
-  email: 'required|email',
+  email: {
+    rules: 'required|email|unique',
+    unique: {
+      async exists(email) {
+        const e = await User.findOne({ email });
+        return !!e;
+      },
+    },
+  },
   password: {
     rules: 'required|minlen',
     minlen: 8,
@@ -15,7 +26,10 @@ const loginRules = {
 const quesRules = {
   title: 'required',
   body: 'required',
-  notify: 'boolean',
+  notify: {
+    rules: 'belongsto',
+    belongsto: [true, false],
+  },
 };
 
 const ansRules = {

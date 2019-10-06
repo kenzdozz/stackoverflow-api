@@ -6,7 +6,7 @@ import VoteController from '../controllers/VoteController';
 import authenticated from '../middlewares/authentication';
 
 /**
- * Routes of '/auth'
+ * Routes of '/votes'
  */
 const voteRouter = express.Router();
 

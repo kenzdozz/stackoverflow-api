@@ -1,11 +1,20 @@
+// eslint-disable-next-line no-unused-vars
+import express from 'express';
 import Question from '../database/models/Question';
 import Response from '../helpers/Response';
 import codes from '../helpers/statusCodes';
 import User from '../database/models/User';
 import { validateMongoID } from '../helpers/utils';
 import Answer from '../database/models/Answer';
+import sendMail from '../helpers/sendMail';
+import Logger from '../helpers/Logger';
 
 class AnswerController {
+  /**
+  * This handles user registration.
+  * @param {express.Request} req Express request param
+  * @param {express.Response} res Express response param
+  */
   static async reply(req, res) {
     const { id: questionId } = req.params;
     const { body } = req.body;
@@ -18,7 +27,7 @@ class AnswerController {
     }
 
     try {
-      const question = await Question.findById(questionId);
+      const question = await Question.findById(questionId).populate('author', 'displayName email');
       if (!question) {
         return Response.send(res, codes.notFound, {
           error: 'Question not found.',
@@ -32,6 +41,13 @@ class AnswerController {
       await answer.save();
       await User.updateOne({ _id: user._id }, { $push: { answers: answer._id } });
       await Question.updateOne({ _id: questionId }, { $push: { answers: answer._id } });
+
+      if (question.notify) {
+        const message = `Dear ${question.author.displayName}<br/> A new answer has been posted on your question ${question.title}.<br/>Thanks.`;
+        try {
+          sendMail(question.author.email, 'An answer posted for your question', message);
+        } catch (err) { Logger.log(err); }
+      }
 
       return Response.send(res, codes.success, {
         data: answer,

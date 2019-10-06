@@ -19,7 +19,9 @@ class TokenUtil {
    * @param {String} token - JWT
    */
   static verify(token) {
-    return jsonwebtoken.verify(token, process.env.JWT_SECRET);
+    try {
+      return jsonwebtoken.verify(token, process.env.JWT_SECRET);
+    } catch (err) { return null; }
   }
 }
 

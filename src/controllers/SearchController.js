@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import express from 'express';
 import Question from '../database/models/Question';
 import Response from '../helpers/Response';
 import codes from '../helpers/statusCodes';
@@ -5,6 +7,11 @@ import User from '../database/models/User';
 import Answer from '../database/models/Answer';
 
 class SearchController {
+  /**
+  * This handles user registration.
+  * @param {express.Request} req Express request param
+  * @param {express.Response} res Express response param
+  */
   static async search(req, res) {
     const { search } = req.query;
     const regSearch = { $regex: new RegExp(search, 'i') };

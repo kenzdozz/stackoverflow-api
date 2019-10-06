@@ -1,4 +1,6 @@
 /* eslint-disable eqeqeq */
+// eslint-disable-next-line no-unused-vars
+import express from 'express';
 import Question from '../database/models/Question';
 import Response from '../helpers/Response';
 import codes from '../helpers/statusCodes';
@@ -7,7 +9,15 @@ import { validateMongoID } from '../helpers/utils';
 import Answer from '../database/models/Answer';
 import Vote from '../database/models/Vote';
 
+/**
+ * Vote Controller
+ */
 class VoteController {
+  /**
+  * This handles user registration.
+  * @param {express.Request} req Express request param
+  * @param {express.Response} res Express response param
+  */
   static async voteQues(req, res) {
     const { id: questionId, vote } = req.body;
     const { user } = req;
@@ -58,6 +68,11 @@ class VoteController {
     } catch (error) { return Response.handleError(res, error); }
   }
 
+  /**
+  * This handles user registration.
+  * @param {express.Request} req Express request param
+  * @param {express.Response} res Express response param
+  */
   static async voteAns(req, res) {
     const { id: answerId, vote } = req.body;
     const { user } = req;

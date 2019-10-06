@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import express from 'express';
 import bcrypt from 'bcrypt';
 import User from '../database/models/User';
 import Response from '../helpers/Response';

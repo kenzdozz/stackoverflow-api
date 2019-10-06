@@ -8,7 +8,7 @@
     "test": "ENV_TEST=true mocha --require babel-register --exit",
     "cover": "nyc --reporter=text mocha --require babel-register --recursive --exit",
     "build": "babel ./ -d build --copy-files --ignore 'node_modules' ",
-    "start": "yarn build && node build/app",
+    "start": "npm run build && node build/src/app",
     "start:dev": "./node_modules/.bin/babel-watch src/app.js"
   },
   "dependencies": {

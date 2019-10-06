@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import express from 'express';
 import Question from '../database/models/Question';
 import Response from '../helpers/Response';
 import codes from '../helpers/statusCodes';
@@ -8,6 +10,11 @@ import sendMail from '../helpers/sendMail';
 import Logger from '../helpers/Logger';
 
 class AnswerController {
+  /**
+  * This handles user registration.
+  * @param {express.Request} req Express request param
+  * @param {express.Response} res Express response param
+  */
   static async reply(req, res) {
     const { id: questionId } = req.params;
     const { body } = req.body;

@@ -1,10 +1,20 @@
+// eslint-disable-next-line no-unused-vars
+import express from 'express';
 import Question from '../database/models/Question';
 import Response from '../helpers/Response';
 import codes from '../helpers/statusCodes';
 import User from '../database/models/User';
 import { validateMongoID } from '../helpers/utils';
 
+/**
+ * @class QuestionController
+ */
 class QuestionController {
+  /**
+  * This handles user registration.
+  * @param {express.Request} req Express request param
+  * @param {express.Response} res Express response param
+  */
   static async ask(req, res) {
     const { title, body, notify } = req.body;
     const { user } = req;
@@ -26,6 +36,11 @@ class QuestionController {
     } catch (error) { return Response.handleError(res, error); }
   }
 
+  /**
+  * This handles user registration.
+  * @param {express.Request} req Express request param
+  * @param {express.Response} res Express response param
+  */
   static async viewAll(req, res) {
     try {
       const questions = await Question.find({}).populate('author', 'displayName email');
@@ -36,6 +51,11 @@ class QuestionController {
     } catch (error) { return Response.handleError(res, error); }
   }
 
+  /**
+  * This handles user registration.
+  * @param {express.Request} req Express request param
+  * @param {express.Response} res Express response param
+  */
   static async viewOne(req, res) {
     const { id } = req.params;
 

@@ -1,0 +1,953 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Stackoverflow API",
+    "description": "A stackoverflow-lite API",
+    "contact": {}
+  },
+  "host": "localhost:9090",
+  "basePath": "/api/v1",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "description": "Allows a user to create account",
+        "summary": "Sign up",
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "AuthSignupPost",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "example": {
+                "displayName": "Kenny",
+                "email": "kenzdozz@aol.com",
+                "password": "secret123"
+              },
+              "type": "object",
+              "properties": {
+                "displayName": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "displayName",
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AuthRes"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Set-Cookie": {
+                "type": "string",
+                "default": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJxdWVzdGlvbnMiOltdLCJhbnN3ZXJzIjpbXSwiYW5zVm90ZXMiOltdLCJxdWVzVm90ZXMiOltdLCJfaWQiOiI1ZDk4NTRlYmY3MDQzNDFjNmNlYmQxMzMiLCJkaXNwbGF5TmFtZSI6Iktlbm55IiwiZW1haWwiOiJrZW56ZG96ekBhb2wuY29tIiwiaWF0IjoxNTcwMjY0Mjk5LCJleHAiOjE1NzAzNTA2OTl9.7l41CblR-JiFJqqf5XrpfA4-7WrhPBgI4qZoT0NUTtQ; Max-Age=900; Path=/; Expires=Sat, 05 Oct 2019 08:46:39 GMT; HttpOnly"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "description": "Allows an existing user to login",
+        "summary": "Sign in",
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "AuthLoginPost",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "example": {
+                "email": "kenzdozz@aol.com",
+                "password": "secret123"
+              },
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AuthRes"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Set-Cookie": {
+                "type": "string",
+                "default": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJxdWVzdGlvbnMiOltdLCJhbnN3ZXJzIjpbXSwiYW5zVm90ZXMiOltdLCJxdWVzVm90ZXMiOltdLCJfaWQiOiI1ZDk4NTRlYmY3MDQzNDFjNmNlYmQxMzMiLCJkaXNwbGF5TmFtZSI6Iktlbm55IiwiZW1haWwiOiJrZW56ZG96ekBhb2wuY29tIiwiY3JlYXRlZEF0IjoiMjAxOS0xMC0wNVQwODozMTozOS41MDFaIiwidXBkYXRlZEF0IjoiMjAxOS0xMC0wNVQwODozMTozOS41MDFaIiwiX192IjowLCJpYXQiOjE1NzAyNjQzNzAsImV4cCI6MTU3MDM1MDc3MH0.0UKDYu7A4TQFQjyora6F6pLUFuXEMfuNv4YvzLOyffU; Max-Age=900; Path=/; Expires=Sat, 05 Oct 2019 08:47:50 GMT; HttpOnly"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/questions": {
+      "post": {
+        "description": "User can post a question",
+        "summary": "Ask Question",
+        "tags": [
+          "Question"
+        ],
+        "operationId": "QuestionsPost",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "example": {
+                "title": "Test a test script",
+                "body": "How can I test a test?",
+                "notify": true
+              },
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "string"
+                },
+                "notify": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "title",
+                "body"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "example": {
+                "status": 200,
+                "data": {
+                  "tags": [],
+                  "notify": true,
+                  "answered": false,
+                  "answers": [],
+                  "votes": [],
+                  "voteCount": 0,
+                  "_id": "5d9856a0425a8f1db16d936c",
+                  "title": "Test a test script",
+                  "body": "How can I test a test?",
+                  "author": {
+                    "_id": "5d9854ebf704341c6cebd133",
+                    "displayName": "Kenny",
+                    "email": "kenzdozz@aol.com"
+                  },
+                  "createdAt": "2019-10-05T08:38:56.854Z",
+                  "updatedAt": "2019-10-05T08:38:56.854Z",
+                  "__v": 0
+                }
+              },
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "data": {
+                  "$ref": "#/definitions/Question"
+                }
+              },
+              "required": [
+                "status",
+                "data"
+              ]
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              }
+            }
+          }
+        },
+        "security": []
+      },
+      "get": {
+        "description": "Allows users to view questions",
+        "summary": "View questions",
+        "tags": [
+          "Question"
+        ],
+        "operationId": "QuestionsGet",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "example": {
+                "status": 200,
+                "data": [
+                  {
+                    "tags": [],
+                    "notify": true,
+                    "answered": false,
+                    "answers": [],
+                    "votes": [],
+                    "voteCount": 0,
+                    "_id": "5d98561d3a46461d4d6d4098",
+                    "title": "Test a test script",
+                    "body": "How can I test a test?",
+                    "author": {
+                      "_id": "5d9854ebf704341c6cebd133",
+                      "displayName": "Kenny",
+                      "email": "kenzdozz@aol.com"
+                    },
+                    "createdAt": "2019-10-05T08:36:45.418Z",
+                    "updatedAt": "2019-10-05T08:36:45.418Z",
+                    "__v": 0
+                  },
+                  {
+                    "tags": [],
+                    "notify": true,
+                    "answered": false,
+                    "answers": [],
+                    "votes": [],
+                    "voteCount": 0,
+                    "_id": "5d985635b05b541d6dd9946c",
+                    "title": "Test a test script",
+                    "body": "How can I test a test?",
+                    "author": {
+                      "_id": "5d9854ebf704341c6cebd133",
+                      "displayName": "Kenny",
+                      "email": "kenzdozz@aol.com"
+                    },
+                    "createdAt": "2019-10-05T08:37:09.624Z",
+                    "updatedAt": "2019-10-05T08:37:09.624Z",
+                    "__v": 0
+                  }
+                ]
+              },
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Question"
+                  }
+                }
+              },
+              "required": [
+                "status",
+                "data"
+              ]
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/questions/{id}": {
+      "get": {
+        "description": "Allows users to view a given question by ID",
+        "summary": "View a question",
+        "tags": [
+          "Question"
+        ],
+        "operationId": "Questions5d98561d3a46461d4d6d4098Get",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "example": {
+                "status": 200,
+                "data": {
+                  "tags": [],
+                  "notify": true,
+                  "answered": false,
+                  "answers": [],
+                  "votes": [],
+                  "voteCount": 0,
+                  "_id": "5d98561d3a46461d4d6d4098",
+                  "title": "Test a test script",
+                  "body": "How can I test a test?",
+                  "author": {
+                    "_id": "5d9854ebf704341c6cebd133",
+                    "displayName": "Kenny",
+                    "email": "kenzdozz@aol.com"
+                  },
+                  "createdAt": "2019-10-05T08:36:45.418Z",
+                  "updatedAt": "2019-10-05T08:36:45.418Z",
+                  "__v": 0
+                }
+              },
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "data": {
+                  "$ref": "#/definitions/Question"
+                }
+              },
+              "required": [
+                "status",
+                "data"
+              ]
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Allows users to post reply to answer a question",
+        "summary": "Answer a question",
+        "tags": [
+          "Question"
+        ],
+        "operationId": "Questions5d98561d3a46461d4d6d4098Post",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "example": {
+                "body": "If you test a test, you need to test the test of the tset:)"
+              },
+              "type": "object",
+              "properties": {
+                "body": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "body"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "example": {
+                "status": 200,
+                "data": {
+                  "tags": [],
+                  "accepted": false,
+                  "votes": [],
+                  "voteCount": 0,
+                  "_id": "5d985741425a8f1db16d936d",
+                  "body": "If you test a test, you need to test the test of the tset:)",
+                  "author": "5d9854ebf704341c6cebd133",
+                  "question": "5d98561d3a46461d4d6d4098",
+                  "createdAt": "2019-10-05T08:41:37.526Z",
+                  "updatedAt": "2019-10-05T08:41:37.526Z",
+                  "__v": 0
+                }
+              },
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "data": {
+                  "$ref": "#/definitions/Answer"
+                }
+              },
+              "required": [
+                "status",
+                "data"
+              ]
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/votes/question": {
+      "post": {
+        "description": "TODO: Add Description",
+        "summary": "Vote question",
+        "tags": [
+          "Vote"
+        ],
+        "operationId": "VotesQuestionPost",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "example": {
+                "id": "5d99b8a55fd020127207cdee",
+                "vote": 1
+              },
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "vote": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "required": [
+                "id",
+                "vote"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VoteRes"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/votes/answer": {
+      "post": {
+        "description": "TODO: Add Description",
+        "summary": "Vote answer",
+        "tags": [
+          "Vote"
+        ],
+        "operationId": "VotesAnswerPost",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "example": {
+                "id": "5d99b8a55fd020127207cdee",
+                "vote": 1
+              },
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "vote": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "required": [
+                "id",
+                "vote"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VoteRes"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/search": {
+      "get": {
+        "description": "Search questions, users, answers",
+        "summary": "Search",
+        "tags": [
+          "Search"
+        ],
+        "operationId": "SearchGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AuthRes": {
+      "title": "AuthRes",
+      "example": {
+        "status": 201,
+        "data": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJxdWVzdGlvbnMiOltdLCJhbnN3ZXJzIjpbXSwiYW5zVm90ZXMiOltdLCJxdWVzVm90ZXMiOltdLCJfaWQiOiI1ZDk4NTRlYmY3MDQzNDFjNmNlYmQxMzMiLCJkaXNwbGF5TmFtZSI6Iktlbm55IiwiZW1haWwiOiJrZW56ZG96ekBhb2wuY29tIiwiaWF0IjoxNTcwMjY0Mjk5LCJleHAiOjE1NzAzNTA2OTl9.7l41CblR-JiFJqqf5XrpfA4-7WrhPBgI4qZoT0NUTtQ",
+          "user": {
+            "questions": [],
+            "answers": [],
+            "ansVotes": [],
+            "quesVotes": [],
+            "_id": "5d9854ebf704341c6cebd133",
+            "displayName": "Kenny",
+            "email": "kenzdozz@aol.com"
+          }
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "title": "Data",
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            },
+            "user": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "required": [
+            "token",
+            "user"
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "data"
+      ]
+    },
+    "User": {
+      "title": "User",
+      "type": "object",
+      "properties": {
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ansVotes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "quesVotes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "_id": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "questions",
+        "answers",
+        "ansVotes",
+        "quesVotes",
+        "_id",
+        "displayName",
+        "email"
+      ]
+    },
+    "Question": {
+      "title": "Question",
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notify": {
+          "type": "boolean"
+        },
+        "answered": {
+          "type": "boolean"
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "votes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "voteCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "#/definitions/Author"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "tags",
+        "notify",
+        "answered",
+        "answers",
+        "votes",
+        "voteCount",
+        "_id",
+        "title",
+        "body",
+        "author",
+        "createdAt",
+        "updatedAt",
+        "__v"
+      ]
+    },
+    "Author": {
+      "title": "Author",
+      "example": {
+        "_id": "5d9854ebf704341c6cebd133",
+        "displayName": "Kenny",
+        "email": "kenzdozz@aol.com"
+      },
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "_id",
+        "displayName",
+        "email"
+      ]
+    },
+    "Answer": {
+      "title": "Answer",
+      "example": {
+        "tags": [],
+        "accepted": false,
+        "votes": [],
+        "voteCount": 0,
+        "_id": "5d985741425a8f1db16d936d",
+        "body": "If you test a test, you need to test the test of the tset:)",
+        "author": "5d9854ebf704341c6cebd133",
+        "question": "5d98561d3a46461d4d6d4098",
+        "createdAt": "2019-10-05T08:41:37.526Z",
+        "updatedAt": "2019-10-05T08:41:37.526Z",
+        "__v": 0
+      },
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "accepted": {
+          "type": "boolean"
+        },
+        "votes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "voteCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "tags",
+        "accepted",
+        "votes",
+        "voteCount",
+        "_id",
+        "body",
+        "author",
+        "question",
+        "createdAt",
+        "updatedAt",
+        "__v"
+      ]
+    },
+    "VoteRes": {
+      "title": "VoteRes",
+      "example": {
+        "status": 200,
+        "message": "Upvoted successfully."
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "message"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "Question"
+    },
+    {
+      "name": "Vote"
+    },
+    {
+      "name": "Search"
+    }
+  ]
+}

@@ -85,7 +85,7 @@ class VoteController {
       let aVote = await Vote.findOne({ author: user._id, answer: answerId, vote });
       if (aVote) {
         await aVote.remove();
-        await User.updateOne({ _id: user._id }, { $pull: { quesVotes: aVote._id } });
+        await User.updateOne({ _id: user._id }, { $pull: { ansVotes: aVote._id } });
         await Answer.updateOne({ _id: answerId }, {
           $pull: { votes: aVote._id },
           $inc: { voteCount: 0 - vote },
@@ -94,7 +94,7 @@ class VoteController {
       } else {
         aVote = new Vote({ author: user._id, answer: answerId, vote });
         await aVote.save();
-        await User.updateOne({ _id: user._id }, { $push: { quesVotes: aVote._id } });
+        await User.updateOne({ _id: user._id }, { $push: { ansVotes: aVote._id } });
         await Answer.updateOne({ _id: answerId }, {
           $push: { votes: aVote._id },
           $inc: { voteCount: vote },

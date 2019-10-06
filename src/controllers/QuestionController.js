@@ -10,7 +10,7 @@ class QuestionController {
     const { user } = req;
 
     try {
-      const question = new Question({
+      let question = new Question({
         title,
         body,
         notify,
@@ -18,6 +18,7 @@ class QuestionController {
       });
       await question.save();
       await User.updateOne({ _id: user._id }, { $push: { questions: question._id } });
+      question = await Question.findById(question._id).populate('author', 'displayName email');
 
       return Response.send(res, codes.success, {
         data: question,

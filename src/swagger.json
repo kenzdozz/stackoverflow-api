@@ -20,7 +20,7 @@
   "paths": {
     "/auth/signup": {
       "post": {
-        "description": "Allows a user to create account",
+        "description": "Allows a user to create account. A user provides displayName, email and password, email address is unique per user. Once the user account is created, user is logged in and a JWT is issued. User details is also returned.",
         "summary": "Sign up",
         "tags": [
           "Auth"
@@ -84,7 +84,7 @@
     },
     "/auth/login": {
       "post": {
-        "description": "Allows an existing user to login",
+        "description": "Allows an existing user to login. A user provides email and password. If the details matches a user, user is logged in and a JWT is issued. User details is also returned.",
         "summary": "Sign in",
         "tags": [
           "Auth"
@@ -143,7 +143,7 @@
     },
     "/questions": {
       "post": {
-        "description": "User can post a question",
+        "description": "User can post a question. Question title and body is required, user can also supply 'notify' to indicate if to be notified when an answer is posted on the question. The question is returned as response.",
         "summary": "Ask Question",
         "tags": [
           "Question"
@@ -243,7 +243,7 @@
         "security": []
       },
       "get": {
-        "description": "Allows users to view questions",
+        "description": "Allows users to view questions. This returns the array of all questions asked.",
         "summary": "View questions",
         "tags": [
           "Question"
@@ -331,7 +331,7 @@
     },
     "/questions/{id}": {
       "get": {
-        "description": "Allows users to view a given question by ID",
+        "description": "Allows users to view a given question by ID. This returns the particular question whose ID was provided along with the answers alredy posted for the question.",
         "summary": "View a question",
         "tags": [
           "Question"
@@ -401,7 +401,7 @@
         }
       },
       "post": {
-        "description": "Allows users to post reply to answer a question",
+        "description": "Allows users to post reply to answer a question. The comment body is required and the answer posted is returned as a response.",
         "summary": "Answer a question",
         "tags": [
           "Question"
@@ -495,7 +495,7 @@
     },
     "/votes/question": {
       "post": {
-        "description": "TODO: Add Description",
+        "description": "User can vote a question. This allows a user to upvote or downvote a question by sending '1 or -1' respectively. To remove a vote, you send the same flag again.",
         "summary": "Vote question",
         "tags": [
           "Vote"
@@ -559,7 +559,7 @@
     },
     "/votes/answer": {
       "post": {
-        "description": "TODO: Add Description",
+        "description": "User can vote an answer. This allows a user to upvote or downvote an answer by sending '1 or -1' respectively. To remove a vote, you send the same flag again.",
         "summary": "Vote answer",
         "tags": [
           "Vote"
@@ -623,7 +623,7 @@
     },
     "/search": {
       "get": {
-        "description": "Search questions, users, answers",
+        "description": "Search questions, users, answers. This returns search results for users, questions and answers.",
         "summary": "Search",
         "tags": [
           "Search"
@@ -938,16 +938,20 @@
   },
   "tags": [
     {
-      "name": "Auth"
+      "name": "Auth",
+      "description":"This allows user registration and authentication."
     },
     {
-      "name": "Question"
+      "name": "Question",
+      "description": "This allows users to ask questions, view questions and post answers."
     },
     {
-      "name": "Vote"
+      "name": "Vote",
+      "description": "This allows users to vote for a question or an answer."
     },
     {
-      "name": "Search"
+      "name": "Search",
+      "description": "This allows users to search for questions, users or answers."
     }
   ]
 }

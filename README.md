@@ -4,6 +4,22 @@
 
 Stackoverflow-api is an API implementing lite version of stackoverflow
 
+## Features
+
+- User can create account.
+- User can log in.
+- User can ask question.
+- User can answer a question.
+- User can view all questions.
+- User can view a specific question with answers.
+- User can upvote or downvote question or answer.
+- User can search for questions, users, answers
+- User can be notified by email when an answer is posted on user's question if he subscribed to it when asking the question.
+
+## API Documentation
+
+The API Documentation can be found on http://127.0.0.1:9090/api/docs when the app is started.
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.

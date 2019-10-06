@@ -55,7 +55,7 @@ The tests, test the api endpoints to ensure that it works and returns the requir
 
 * [Nodejs](https://nodejs.org/en/) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine
 * [Express](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js
-* [MongoDB](https://www.mongodb.org/) - The World's Most Advanced Open Source Relational Database
+* [MongoDB](https://www.mongodb.org/) - MongoDB is a cross-platform document-oriented database program
 * [JWT](https://www.npmjs.com/package/jsonwebtoken) - JSON Web Token for aunthentication
 
 ## Authors
